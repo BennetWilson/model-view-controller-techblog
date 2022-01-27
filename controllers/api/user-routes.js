@@ -1,29 +1,29 @@
 const router = require('express').Router();
-const { User } = require('../../models/User');
+const { User } = require('../../models');
 
 router.post('/', async (req, res) => {
-    try {
+    // try {
         const newUser = await User.create ({
             username: req.body.username,
             password: req.body.password
         });
         req.session.save(() => {
-            req.session.userId = newUser.id;
+            req.session.user_id = newUser.id;
             req.session.username = newUser.username;
             req.session.logged_in = true;
             
             res.json(newUser);
         });
-    } catch (err) {
-        res.status(500).json(err);
-    }
+    // } catch (err) {
+    //     res.status(500).json(err);
+    // }
 });
 
 router.post('/login', async (req, res) => {
-    try {
+    // try {
         const user = await User.findOne({
             where: {
-                username: req.nody.username,
+                username: req.body.username,
             },
         });;
         if(!user) {
@@ -39,15 +39,15 @@ router.post('/login', async (req, res) => {
         }
 
         req.session.save(() => {
-            req.session.userId = user.id;
+            req.session.user_id = user.id;
             req.session.username = user.username;
             req.session.logged_in = true;
 
             res.json({ user, message:'You are now logged in'});
         });
-    } catch (err) {
-        res.status(400).json({ message: 'No user account found'});
-    }
+    // } catch (err) {
+    //     res.status(400).json({ message: 'No user account found'});
+    // }
 });
 
 router.post('/logout', (req, res) => {
