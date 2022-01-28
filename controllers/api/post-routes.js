@@ -3,7 +3,7 @@ const { Post, User } = require('../../models');
 const withAuth = require('../../utils/auth');
 
 router.get('/', async (req,res) => {
-    try {
+    // try {
         const postData = await Post.findAll({
           include: [User],
         });
@@ -11,26 +11,24 @@ router.get('/', async (req,res) => {
         const posts = postData.map((post) => post.get({ plain: true }));
     
         res.json(posts);
-      } catch (err) {
-        res.status(500).json(err);
-      }
+    //   } catch (err) {
+    //     res.status(500).json(err);
+    //   }
 })
 
 router.get('/:id', async (req,res) => {
-    try {
-        const postData = await Post.findByPk({
-            where: {
-                id: req.params.id
-            },
+    // try {
+        const postData = await Post.findByPk(req.params.id, {
+            
           include: [User],
         });
-    
-        const posts = postData.map((post) => post.get({ plain: true }));
-    
-        res.json(posts);
-      } catch (err) {
-        res.status(500).json(err);
-      }
+        const serializedData = postData.get({ plain: true})
+        // const posts = postData.map((post) => post.get({ plain: true }));
+    console.log(serializedData);
+        res.render('single-post', serializedData);
+    //   } catch (err) {
+    //     res.status(500).json(err);
+    //   }
 })
 
 router.post('/', withAuth, async (req, res) => {
