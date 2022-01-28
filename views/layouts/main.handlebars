@@ -44,13 +44,18 @@
                   href="/"
                   onsubmit="handleLogoutButton"
                 >Logout</a>
+                <script src="/javascript/logout.js"></script>
               {{else}}
                 <a
                   class="nav-link"
                   id="loginLink"
                   href="/login"
-                  onsubmit="handleLoginButton"
                 >Login</a>
+                <a
+                  class="nav-link"
+                  id="signupLink"
+                  href="/signup"
+                >Signup</a>
               {{/if}}
             </li>
           </ul>

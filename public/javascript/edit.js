@@ -1,32 +1,47 @@
-const postId = document.querySelector('input[name="post_id"]').value;
-
+const postId = document.querySelector('input[name="post-id"]').value;
+console.log("testing");
 console.log(postId);
 
-commentFormHandler = async (event) => {
-    event.preventDefault();
+const editFormHandler = async (event) => {
+  event.preventDefault();
 
-    const commentContent = document.querySelector('textarea[name="comment-body"]').value;
-    console.log(commentContent);
+  const postTitle = document.querySelector('input[name="post-title"]').value;
+  const postContent = document.querySelector('textarea[name="post-body"]').value;
 
-    if(commentContent) {
-        const response = await fetch('/api/comment', {
-            method: 'POST',
-            body: JSON.stringify({
-                postId,
-                commentContent
-            }),
-            headers: {
-                'Content-Type' : 'application/json'
-            }
-        });
-        if(response.ok) {
-            document.location.reload();
-        } else {
-            alert(response.statusText);
-        }
-    };
-}
+  console.log(postTitle);
+  console.log(postContent);
 
-document 
-    .querySelector('#new-comment-form')
-    .addEventListener('submit', commentFormHandler);
+  const response = await fetch(`/api/post/${postId}`, {
+    method: 'PUT',
+    body: JSON.stringify({
+      postTitle,
+      postContent,
+    }),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+
+  console.log(response);
+  if (response.ok) {
+    document.location.replace('/dashboard');
+  } else {
+    alert('Failed to update your post');
+  }
+  document.location.replace('/dashboard');
+};
+
+const deleteClickHandler = async () => {
+  await fetch(`/api/post/${postId}`, {
+    method: 'DELETE'
+  });
+
+  document.location.replace('/dashboard');
+};
+
+document
+  .querySelector('#edit-post-form')
+  .addEventListener('submit', editFormHandler);
+document
+  .querySelector('#delete-btn')
+  .addEventListener('submit', deleteClickHandler);

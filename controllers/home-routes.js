@@ -31,6 +31,17 @@ router.get("/signup", (req, res) => {
   res.render("signup");
 });
 
+router.get("/profile", withAuth, (req,res) => {
+  Post.findAll ({}).then(data => {
+    const posts = data.map(post => {
+      return post.get({ plain: true})
+    })
+    console.log(posts)
+    res.render("profile",{posts})
+  })
+ 
+})
+
 router.get("/post/:id", async (req, res) => {
   try {
     const postData = await Post.findByPk({

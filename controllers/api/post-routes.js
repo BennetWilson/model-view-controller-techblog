@@ -10,7 +10,24 @@ router.get('/', async (req,res) => {
     
         const posts = postData.map((post) => post.get({ plain: true }));
     
-        res.json(postData);
+        res.json(posts);
+      } catch (err) {
+        res.status(500).json(err);
+      }
+})
+
+router.get('/:id', async (req,res) => {
+    try {
+        const postData = await Post.findByPk({
+            where: {
+                id: req.params.id
+            },
+          include: [User],
+        });
+    
+        const posts = postData.map((post) => post.get({ plain: true }));
+    
+        res.json(posts);
       } catch (err) {
         res.status(500).json(err);
       }
