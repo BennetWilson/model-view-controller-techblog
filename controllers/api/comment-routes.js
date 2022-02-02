@@ -31,4 +31,22 @@ router.post('/',withAuth, async (req, res) => {
     // }
 });
 
+router.delete('/:id', withAuth, async (req, res) =>{
+    // try {
+        const affectedRows  = await Comment.destroy({
+            where: {
+                id: req.params.id,
+            },
+        });
+        res.json(affectedRows)
+        // if(affectedRows > 0) {
+        //     res.status(200).json(affectedRows);
+        // } else {
+        //     res.status(
+        // }
+    // } catch (err) {
+    //     res.status(500).json(err)
+    // }
+});
+
 module.exports = router

@@ -5,5 +5,11 @@
     {{comment_text}} - {{user.username}} {{format_date dateCreated}}
     </p>
   </div>
+  <div class="col-md-4">
+    <button class="btn btn-primary" id='del-comment' data-id='{{comment.id}}'>Delete Comment</button>
+    </div>
+  
   {{/each}}
 </div>
+
+<script src="/javascript/delete-comment.js"></script>
