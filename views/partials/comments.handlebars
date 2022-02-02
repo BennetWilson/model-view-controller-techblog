@@ -1,5 +1,5 @@
 <div class="comments">
-  {{#each this}}
+  {{#each comments as |comment| }}
   <div>
     <p class="card-body2">
     {{comment_text}} - {{user.username}} {{format_date dateCreated}}

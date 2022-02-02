@@ -30,7 +30,15 @@ Post.init(
         model: "user",
         key: "id",
       },
-    },
+    }
+    // ,
+    // comment_text: {
+    //   type: DataTypes.TEXT,
+    //   references: {
+    //     model: 'comment',
+    //     key: 'comment_text'
+    //   }
+    // }
   },
   {
     sequelize,

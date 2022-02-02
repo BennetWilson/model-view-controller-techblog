@@ -32,7 +32,7 @@
                <a href="/api/post/{{post.id}}" id="singlePost"> {{post.title}}</a>
            </div>
            <div class="col-md-4">
-               <button class="btn btn-sm btn-danger" data-id='{{title.id}}'>Delete</button>
+               <button class="btn btn-sm btn-danger" id='delete-btn-red' data-id='{{post.id}}'>Delete</button>
            </div>
        </div>
        {{/each}}
@@ -40,4 +40,5 @@
    {{/if}}
 
 <script src="/javascript/new-post.js"></script>
+<script src="/javascript/delete-post.js"></script>
 

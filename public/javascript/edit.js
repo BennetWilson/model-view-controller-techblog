@@ -1,6 +1,6 @@
-const postId = document.querySelector('input[name="post-id"]').value;
-console.log("testing");
-console.log(postId);
+// const postId = document.querySelector('input[name="post-id"]').value;
+
+const postId = location.pathname.split("/")[3];
 
 const editFormHandler = async (event) => {
   event.preventDefault();
@@ -24,24 +24,30 @@ const editFormHandler = async (event) => {
 
   console.log(response);
   if (response.ok) {
-    document.location.replace('/dashboard');
+    document.location.replace('/profile');
   } else {
     alert('Failed to update your post');
   }
-  document.location.replace('/dashboard');
+  document.location.replace('/profile');
 };
 
-const deleteClickHandler = async () => {
-  await fetch(`/api/post/${postId}`, {
-    method: 'DELETE'
-  });
-
-  document.location.replace('/dashboard');
-};
 
 document
   .querySelector('#edit-post-form')
   .addEventListener('submit', editFormHandler);
+
+
+
+
+
+
+
+
+const showEditPost = () => {
+
+  document.querySelector('#edit-post-form').classList.remove('hide')
+}
+
 document
-  .querySelector('#delete-btn')
-  .addEventListener('submit', deleteClickHandler);
+  .querySelector('#edit-btn')
+  .addEventListener('click', showEditPost);

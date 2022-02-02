@@ -1,11 +1,11 @@
 const router = require('express').Router();
-const { Post, User } = require('../../models');
+const { Post, User, Comment } = require('../../models');
 const withAuth = require('../../utils/auth');
 
 router.get('/', async (req,res) => {
     // try {
         const postData = await Post.findAll({
-          include: [User],
+          include: [{model: User}, {model:Comment}],
         });
     
         const posts = postData.map((post) => post.get({ plain: true }));
@@ -20,12 +20,13 @@ router.get('/:id', async (req,res) => {
     // try {
         const postData = await Post.findByPk(req.params.id, {
             
-          include: [User],
+          include: [{model: User},{model:Comment}],
         });
         const serializedData = postData.get({ plain: true})
         // const posts = postData.map((post) => post.get({ plain: true }));
-    console.log(serializedData);
+    console.log('This is the data',serializedData);
         res.render('single-post', serializedData);
+        // res.json(serializedData)
     //   } catch (err) {
     //     res.status(500).json(err);
     //   }
@@ -45,12 +46,16 @@ router.post('/', withAuth, async (req, res) => {
 });
 
 router.put('/:id', withAuth, async (req, res) => {
+    const body = req.body
     // try{
         console.log(`Here is the req.body ${req.body}`);
         const [affectedRows] = await Post.update(req.body, {
+            
             where: {
                 id: req.params.id,
             },
+            // ...body,
+            user_id: req.session.user_id,
         });
         if(affectedRows > 0) {
             res.status(200).json(affectedRows);
