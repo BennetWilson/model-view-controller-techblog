@@ -48,7 +48,7 @@ router.post('/', withAuth, async (req, res) => {
 router.put('/:id', withAuth, async (req, res) => {
     const body = req.body
     // try{
-        console.log(`Here is the req.body ${req.body}`);
+        // console.log(`Here is the req.body ${req.body}`);
         const [affectedRows] = await Post.update(req.body, {
             
             where: {
@@ -58,7 +58,7 @@ router.put('/:id', withAuth, async (req, res) => {
             user_id: req.session.user_id,
         });
         if(affectedRows > 0) {
-            res.status(200).json(affectedRows);
+            res.status(200).json([affectedRows]);
         } else {
             res.status(400).end();
         }

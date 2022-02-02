@@ -5,17 +5,17 @@ const postId = location.pathname.split("/")[3];
 const editFormHandler = async (event) => {
   event.preventDefault();
 
-  const postTitle = document.querySelector('input[name="post-title"]').value;
-  const postContent = document.querySelector('textarea[name="post-body"]').value;
+  const title = document.querySelector('input[name="post-title"]').value;
+  const post_content = document.querySelector('textarea[name="post-body"]').value;
 
-  console.log(postTitle);
-  console.log(postContent);
+  // console.log(postTitle);
+  // console.log(postContent);
 
   const response = await fetch(`/api/post/${postId}`, {
     method: 'PUT',
     body: JSON.stringify({
-      postTitle,
-      postContent,
+      title,
+      post_content,
     }),
     headers: {
       'Content-Type': 'application/json'
